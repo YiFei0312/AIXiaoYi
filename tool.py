@@ -8,7 +8,7 @@ from dashscope import ImageSynthesis, MultiModalConversation
 import os
 
 os.environ['OPENCV_VIDEOIO_PLUGIN_LIST'] = 'v4l2,camera'
-# import OPi.GPIO as GPIO
+import OPi.GPIO as GPIO
 
 # 定义工具列表，模型在选择使用哪个工具时会参考工具的name和description
 tools = [
@@ -59,24 +59,24 @@ tools = [
             "parameters": {}  # 因为无需输入参数，因此parameters为空字典
         }
     },
-    # # 工具5 开启风扇
-    # {
-    #     "type": "function",
-    #     "function": {
-    #         "name": "turn_on_fan",
-    #         "description": "当你想开启风扇时，或者我说开启风扇时，你可以使用这个工具。",
-    #         "parameters": {}
-    #     }
-    # },
-    # # 工具6 关闭风扇
-    # {
-    #     "type": "function",
-    #     "function": {
-    #         "name": "turn_off_fan",
-    #         "description": "当你想要关闭风扇时，或者我说关闭风扇时，你可以使用这个工具。",
-    #         "parameters": {}
-    #     }
-    # },
+    # 工具5 开启风扇
+    {
+        "type": "function",
+        "function": {
+            "name": "turn_on_fan",
+            "description": "当你想开启风扇时，或者我说开启风扇时，你可以使用这个工具。",
+            "parameters": {}
+        }
+    },
+    # 工具6 关闭风扇
+    {
+        "type": "function",
+        "function": {
+            "name": "turn_off_fan",
+            "description": "当你想要关闭风扇时，或者我说关闭风扇时，你可以使用这个工具。",
+            "parameters": {}
+        }
+    },
     {
         "type": "function",
         "function": {
@@ -181,29 +181,29 @@ def get_current_time():
     return current_time
 
 
-# def turn_on_fan():
-#     # 初始化GPIO
-#     GPIO.setmode(GPIO.BOARD)
-#
-#     # 选择一个有效的GPIO引脚，例如GPIO75
-#     led_pin = 8
-#
-#     # 设置GPIO引脚为输出模式
-#     GPIO.setup(led_pin, GPIO.OUT)
-#
-#     GPIO.output(led_pin, GPIO.HIGH)
-#     GPIO.cleanup()
-#     print("开启风扇喵！")
-#     return "开启风扇喵！"
-#
-# def turn_off_fan():
-#     GPIO.setmode(GPIO.BOARD)
-#     led_pin = 8
-#     GPIO.setup(led_pin, GPIO.OUT)
-#     GPIO.output(led_pin, GPIO.LOW)
-#     GPIO.cleanup()
-#     print("关闭风扇喵！")
-#     return "关闭风扇喵！"
+def turn_on_fan():
+    # 初始化GPIO
+    GPIO.setmode(GPIO.BOARD)
+
+    # 选择一个有效的GPIO引脚，例如GPIO75
+    led_pin = 8
+
+    # 设置GPIO引脚为输出模式
+    GPIO.setup(led_pin, GPIO.OUT)
+
+    GPIO.output(led_pin, GPIO.HIGH)
+    GPIO.cleanup()
+    print("开启风扇喵！")
+    return "开启风扇喵！"
+
+def turn_off_fan():
+    GPIO.setmode(GPIO.BOARD)
+    led_pin = 8
+    GPIO.setup(led_pin, GPIO.OUT)
+    GPIO.output(led_pin, GPIO.LOW)
+    GPIO.cleanup()
+    print("关闭风扇喵！")
+    return "关闭风扇喵！"
 
 def miaomiao():
     print("喵喵喵工具调用成功")
@@ -213,8 +213,8 @@ TOOL_MAP = {
     'identify_images': identify_images,  # 识别图像
     'take_photo': take_photo,  # 拍照
     'get_current_time': get_current_time,  # 获取当前时间
-    # 'turn_on_fan': turn_on_fan,  # 开启风扇
-    # 'turn_off_fan': turn_off_fan  # 关闭风扇
+    'turn_on_fan': turn_on_fan,  # 开启风扇
+    'turn_off_fan': turn_off_fan,  # 关闭风扇
     'miaomiao': miaomiao,
 }
 
