@@ -21,4 +21,4 @@ jobs:
         spec: 'main.py'
         requirements: 'requirements.txt'
         upload_exe_with_name: 'XiaoYi'
-        options: --onefile, --name "XiaoYi" --windowed
+        options: --onefile, --name "XiaoYi"
