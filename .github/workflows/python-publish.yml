@@ -1,4 +1,4 @@
-name: Upload Python Package
+name: 打包成exe
 
 on:
   workflow_dispatch:
