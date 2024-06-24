@@ -156,8 +156,6 @@ TOOL_MAP = {
     'identify_images': identify_images,  # 识别图像
     'take_photo': take_photo,  # 拍照
     'get_current_time': get_current_time,  # 获取当前时间
-    'turn_on_fan': turn_on_fan,  # 开启风扇
-    'turn_off_fan': turn_off_fan,  # 关闭风扇
 }
 
 TOOL_MAP_1 = {
