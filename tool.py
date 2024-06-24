@@ -61,6 +61,8 @@ tools = [
 
 
 def identify_images():
+    if os.path.exists('./data')
+        os.mkdir('./data')
     local_file_path = 'file://data/image.jpg'
     # 打开默认的摄像头
     camera = cv2.VideoCapture(0)
@@ -102,6 +104,8 @@ def identify_images():
 
 
 def take_photo():
+    if os.path.exists('./data')
+        os.mkdir('./data')
     # 获取当前时间并格式化为字符串
     current_time = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
     local_file_path = f"data/image_{current_time}.jpg"
@@ -127,6 +131,8 @@ def take_photo():
 
 
 def draw_picture(description):
+    if os.path.exists('./data')
+        os.mkdir('./data')
     rsp = ImageSynthesis.call(model='stable-diffusion-xl',
                               prompt=description,
                               negative_prompt="garfield",
