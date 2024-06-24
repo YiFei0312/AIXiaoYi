@@ -21,4 +21,4 @@ jobs:
         spec: 'main.py'
         requirements: 'requirements.txt'
         upload_exe_with_name: 'XiaoYi'
-        options: --onefile, --name "XiaoYi" --windowed --hidden-import=numpy.core._multiarray_umath your_script.py
+        options: --onefile, --name "XiaoYi" --windowed --hidden-import=numpy.core._multiarray_umath main.py
