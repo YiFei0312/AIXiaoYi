@@ -1,4 +1,4 @@
-name: 打包成exe
+name: 打包成win可执行文件
 
 on:
   push:
@@ -35,11 +35,11 @@ jobs:
         if: runner.os == 'Linux'
   
     
-      - name: Create Executable Ubuntu
+      - name: Create Executable
         uses: sayyid5416/pyinstaller@v1
         with:
           python-version: '3.9'
           spec: 'main.py'
           requirements: 'requirements.txt'
           upload_exe_with_name: 'XiaoYi-linux-x86-64'
-          options: --onefile, --name "XiaoYi_linux"
+          options: --onefile, --name "XiaoYi"
