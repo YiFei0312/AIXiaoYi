@@ -34,33 +34,3 @@ jobs:
           asset_name: XiaoYi-win-x86-64.exe
           tag: ${{ github.ref }}
           overwrite: true
-
-  pyinstaller-build-and-upload-ubuntu:
-
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Install system dependencies for PyAudio
-        run: |
-          sudo apt-get update
-          sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0
-        if: runner.os == 'Linux'
-  
-    
-      - name: Create Executable
-        uses: sayyid5416/pyinstaller@v1
-        with:
-          python-version: '3.9'
-          spec: 'main.py'
-          requirements: 'requirements.txt'
-          upload_exe_with_name: 'XiaoYi-linux-x86-64'
-          options: --onefile, --name "XiaoYi"
-
-      - name: Upload Linux Executable to Release
-        uses: svenstaro/upload-release-action@v2
-        with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/XiaoYi
-          asset_name: XiaoYi-linux-x86-64
-          tag: ${{ github.ref }}
-          overwrite: true
