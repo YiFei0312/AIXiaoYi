@@ -1,9 +1,13 @@
+import os
 import time
 import Speech_Synthesizer
 import Speech_Recognition
 import qwen
 import config
 
+if not os.path.exists('./config.ini'):
+    config.generate_config_file()
+config.read_config_file()
 Speech_Recognition.start()
 manager=qwen.BookkeepingManager()
 while True:
