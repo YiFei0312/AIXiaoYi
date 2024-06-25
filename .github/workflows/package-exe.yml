@@ -3,7 +3,6 @@ name: 打包成exe
 on:
   push:
     branches: [ main ]  # 可以指定分支，如'main'或'master'，留空则表示所有分支
-    tags: [ '*' ]       # 匹配所有标签推送，如果你想针对特定标签，可以列出标签名称
   workflow_dispatch:
 
 permissions:
