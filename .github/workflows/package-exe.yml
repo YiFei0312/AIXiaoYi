@@ -20,8 +20,8 @@ jobs:
           python-version: '3.9'
           spec: 'main.py'
           requirements: 'requirements.txt'
-          upload_exe_with_name: 'XiaoYi'
-          options: --onefile, --name "XiaoYi-win-x86-64"
+          upload_exe_with_name: 'XiaoYi-win-x86-64'
+          options: --onefile, --name "XiaoYi"
           
   pyinstaller-build-ubuntu:
 
@@ -34,5 +34,5 @@ jobs:
           python-version: '3.9'
           spec: 'main.py'
           requirements: 'requirements.txt'
-          upload_exe_with_name: 'XiaoYi'
-          options: --onefile, --name "XiaoYi-linux-x86-64"
+          upload_exe_with_name: 'XiaoYi-linux-x86-64'
+          options: --onefile, --name "XiaoYi"
