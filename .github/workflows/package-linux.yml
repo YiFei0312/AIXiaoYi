@@ -1,4 +1,4 @@
-name: 打包成win可执行文件
+name: 打包成linux可执行文件
 
 on:
   push:
