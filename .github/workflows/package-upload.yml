@@ -23,8 +23,8 @@ jobs:
           python-version: '3.9'
           spec: 'main.py'
           requirements: 'requirements.txt'
-          upload_exe_with_name: 'XiaoYi'
-          options: --onefile --name "XiaoYi-win-x86-64"
+          upload_exe_with_name: 'XiaoYi-win-x86-64'
+          options: --onefile --name "XiaoYi"
 
       - name: Upload Windows Executable to Release
         uses: svenstaro/upload-release-action@v2
@@ -49,8 +49,8 @@ jobs:
           python-version: '3.9'
           spec: 'main.py'
           requirements: 'requirements.txt'
-          upload_exe_with_name: 'XiaoYi'
-          options: --onefile --name "XiaoYi-linux-x86-64"
+          upload_exe_with_name: 'XiaoYi-linux-x86-64'
+          options: --onefile --name "XiaoYi"
 
       - name: Upload Linux Executable to Release
         uses: svenstaro/upload-release-action@v2
