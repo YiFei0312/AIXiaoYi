@@ -1,4 +1,4 @@
-name: 打包成exe并上传至Release
+name: 打包成linux并上传至Release
 
 on:
   push:
