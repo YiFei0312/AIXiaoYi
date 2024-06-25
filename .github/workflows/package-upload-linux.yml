@@ -34,8 +34,8 @@ jobs:
       - name: Upload Linux Executable to Release
         uses: svenstaro/upload-release-action@v2
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: dist/XiaoYi
-          asset_name: XiaoYi-linux-x86-64
-          tag: ${{ github.ref }}
-          overwrite: true
+          repo_token: ${{ secrets.GITHUB_TOKEN }} # 使用GitHub Secrets存储的Token以安全地访问API
+          file: dist/XiaoYi # 假设打包后的文件位于`dist`目录下并命名为`XiaoYi`
+          asset_name: XiaoYi-linux-x86-64 # 上传的资产名称
+          tag: ${{ github.ref }} # 使用触发此工作流的标签作为Release标签
+          overwrite: true # 如果存在同名文件，则允许覆盖
