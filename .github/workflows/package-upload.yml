@@ -2,7 +2,6 @@ name: 打包成exe并上传至Release
 
 on:
   push:
-    branches: [ main ]
     tags: [ '*' ] # 确保在打标签时触发此工作流程
   workflow_dispatch:
 
