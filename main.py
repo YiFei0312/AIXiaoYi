@@ -17,7 +17,8 @@ config.read_config_file()
 manager=qwen.BookkeepingManager()
 
 while True:
-    if Speech_Waken.speech_recognize_keyword_from_microphone():
+    result = Speech_Waken.speech_recognize_keyword_locally_from_microphone()
+    if result:
         Speech_Synthesizer.start('唉！我在！')
         Speech_Recognition.start()
         while True:
