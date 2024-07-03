@@ -1,17 +1,7 @@
 import time
 import wave
+import azure.cognitiveservices.speech as speechsdk
 
-try:
-    import azure.cognitiveservices.speech as speechsdk
-except ImportError:
-    print("""
-    Importing the Speech SDK for Python failed.
-    Refer to
-    https://docs.microsoft.com/azure/cognitive-services/speech-service/quickstart-python for
-    installation instructions.
-    """)
-    import sys
-    sys.exit(1)
 
 
 # Set up the subscription info for the Speech Service:
