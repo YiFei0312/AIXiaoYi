@@ -1,7 +1,17 @@
 import time
 import wave
-import azure.cognitiveservices.speech as speechsdk
 
+try:
+    import azure.cognitiveservices.speech as speechsdk
+except ImportError:
+    print("""
+    Importing the Speech SDK for Python failed.
+    Refer to
+    https://docs.microsoft.com/azure/cognitive-services/speech-service/quickstart-python for
+    installation instructions.
+    """)
+    import sys
+    sys.exit(1)
 
 
 # Set up the subscription info for the Speech Service:
@@ -274,7 +284,7 @@ def speech_recognize_keyword_from_microphone():
 
     # Creates an instance of a keyword recognition model. Update this to
     # point to the location of your keyword recognition model.
-    model = speechsdk.KeywordRecognitionModel("./model/wakeup_xiaoyi.table")
+    model = speechsdk.KeywordRecognitionModel("./model/wakeup_xiaoyitx.table")
 
     # The phrase your keyword recognition model triggers on.
     keyword = "小亦"
@@ -503,10 +513,10 @@ def speech_recognize_keyword_locally_from_microphone():
 
     # Creates an instance of a keyword recognition model. Update this to
     # point to the location of your keyword recognition model.
-    model = speechsdk.KeywordRecognitionModel("../model/wakeup_hellowXiaoyi.table")
+    model = speechsdk.KeywordRecognitionModel("./model/wakeup_xiaoyitx.table")
 
     # The phrase your keyword recognition model triggers on.
-    keyword = "你好小亦"
+    keyword = "小亦同学"
 
     # Create a local keyword recognizer with the default microphone device for input.
     keyword_recognizer = speechsdk.KeywordRecognizer()
@@ -541,20 +551,21 @@ def speech_recognize_keyword_locally_from_microphone():
     result = result_future.get()
 
     # Read result audio (incl. the keyword).
-    if result.reason == speechsdk.ResultReason.RecognizedKeyword:
-        time.sleep(2) # give some time so the stream is filled
-        result_stream = speechsdk.AudioDataStream(result)
-        result_stream.detach_input() # stop any more data from input getting to the stream
-
-        save_future = result_stream.save_to_wav_file_async("AudioFromRecognizedKeyword.wav")
-        print('Saving file...')
-        saved = save_future.get()
+    # if result.reason == speechsdk.ResultReason.RecognizedKeyword:
+    #     time.sleep(2) # give some time so the stream is filled
+    #     result_stream = speechsdk.AudioDataStream(result)
+    #     result_stream.detach_input() # stop any more data from input getting to the stream
+    #
+    #     save_future = result_stream.save_to_wav_file_async("AudioFromRecognizedKeyword.wav")
+    #     print('Saving file...')
+    #     saved = save_future.get()
 
     # If active keyword recognition needs to be stopped before results, it can be done with
     #
     #   stop_future = keyword_recognizer.stop_recognition_async()
     #   print('Stopping...')
     #   stopped = stop_future.get()
+    return True
 
 
 def pronunciation_assessment_from_microphone():
