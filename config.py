@@ -2,6 +2,7 @@ import configparser
 import dashscope
 
 personality = {}
+dashscope.api_key = 'sk-f20d44a96ccd48069a9ce5960d60d78c'
 def generate_config_file():
     config = configparser.ConfigParser()
     api_key = input("请输入您的api_key:")
@@ -15,14 +16,15 @@ def generate_config_file():
 
     config['Personality'] = {'details': personality_str}
 
-    with open('config.ini', 'w') as configfile:
+    with open('./config/config.ini', 'w') as configfile:
         config.write(configfile)
 
 
 
 def read_config_file():
     config = configparser.ConfigParser()
-    config.read('config.ini')
+    config.read('./config/config.ini')
+    print('读取配置成功')
 
     # 读取DashScope部分的api_key
     dashscope.api_key = config.get('DashScope', 'api_key')
