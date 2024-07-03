@@ -3,7 +3,7 @@ from http import HTTPStatus
 import dashscope
 import http.client
 import tool
-import config
+from config import config
 from concurrent.futures import ThreadPoolExecutor
 
 class BookkeepingManager:
