@@ -1,4 +1,5 @@
 import azure.cognitiveservices.speech as speechsdk
+import time
 
 
 def speech_recognize_keyword_locally_from_microphone():
@@ -21,11 +22,14 @@ def speech_recognize_keyword_locally_from_microphone():
         # and there is no timeout. The recognizer runs until a keyword phrase
         # is detected or recognition is canceled (by stop_recognition_async()
         # or due to the end of an input file or stream).
-        result = evt.result
-        if result.reason == speechsdk.ResultReason.RecognizedKeyword:
-            print("RECOGNIZED KEYWORD: {}".format(result.text))
+        # result = evt.result
+        # if result.reason == speechsdk.ResultReason.RecognizedKeyword:
+        #     print("RECOGNIZED KEYWORD: {}".format(result.text))
         nonlocal done
         done = True
+
+
+
 
     def canceled_cb(evt):
         result = evt.result
@@ -40,7 +44,8 @@ def speech_recognize_keyword_locally_from_microphone():
 
     # Start keyword recognition.
     keyword_recognizer.recognize_once_async(model)
-    print('Say something starting with "{}" followed by whatever you want...'.format(keyword))
+    print('等待唤醒中，请叫"{}"'.format(keyword))
+    # print('Say something starting with "{}" followed by whatever you want...'.format(keyword))
     # result = result_future.get()
 
     # Read result audio (incl. the keyword).
@@ -55,10 +60,17 @@ def speech_recognize_keyword_locally_from_microphone():
 
     # If active keyword recognition needs to be stopped before results, it can be done with
     #
-    #   stop_future = keyword_recognizer.stop_recognition_async()
-    #   print('Stopping...')
-    #   stopped = stop_future.get()
-    return True
+      # stop_future = keyword_recognizer.stop_recognition_async()
+      # print('Stopping...')
+      # stopped = stop_future.get()
+    # keyword_recognizer.stop_recognition_async()
+    while not done:
+        time.sleep(0.1)
+    print('唤醒成功')
+    keyword_recognizer.stop_recognition_async()
+
+
+
 
 
 
