@@ -21,5 +21,5 @@ jobs:
           spec: 'main.py'
           requirements: 'requirements.txt'
           upload_exe_with_name: 'XiaoYi-win-x86-64'
-          options: --onedir, --name "XiaoYi", --w
+          options: --onedir, --name "XiaoYi", -w
           
