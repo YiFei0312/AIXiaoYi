@@ -72,7 +72,7 @@ def main():
                         Speech_Recognition.stop()
                     try:
                         Speech_Synthesizer.start(
-                            qwen.get_qwen_response_parallel(manager, Speech_Recognition.latest_sentence))
+                            manager.get_qwen_response_parallel(Speech_Recognition.latest_sentence))
                     except Exception as e:
                         logger.error(f"语音合成失败: {e}")
                     logger.info('对话结束，程序重新开始...')
