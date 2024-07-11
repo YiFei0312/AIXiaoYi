@@ -3,3 +3,4 @@ opencv-python~=4.9.0.80
 PyAudio~=0.2.14
 numpy~=1.21
 azure-cognitiveservices-speech~=1.38.0
+python-vlc
