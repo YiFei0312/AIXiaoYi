@@ -2,7 +2,7 @@ import json
 from http import HTTPStatus
 import dashscope
 import http.client
-import tool
+from tools import tool
 from config import config
 from concurrent.futures import ThreadPoolExecutor
 
@@ -88,7 +88,7 @@ class BookkeepingManager:
                 elif tool_name in self.TOOL_MAP_1:
                     description = json.loads(response.output.choices[0].message.tool_calls[0]['function']['arguments'])[
                         'description']
-                    tool_message = tool.draw_picture(description)
+                    tool_message = tool.play_music(description)
                     # self.add_conversation('user', mess)
                     # self.add_conversation(assistant_message['role'], tool_message)
                     return [tool_message, assistant_message['role']]
@@ -117,14 +117,14 @@ class BookkeepingManager:
             self.ai_bookkeeping = self.ai_bookkeeping[:-1]
 
 
-def get_qwen_response_parallel(manger: BookkeepingManager, mess: str):  # 多线程请求
-    with ThreadPoolExecutor() as executor:
-        ftool = executor.submit(manger.get_tool_response, mess)
-        future = executor.submit(manger.get_response, mess)
-    if ftool.result() == None:
-        print(future.result())
-        return future.result()
-    else:
-        manger.ai_bookkeeping = manger.ai_bookkeeping[:-1]
-        manger.add_conversation(ftool.result()[1], ftool.result()[0])
-        return ftool.result()[0]
+    def get_qwen_response_parallel(self, mess: str):  # 多线程请求
+        with ThreadPoolExecutor() as executor:
+            ftool = executor.submit(self.get_tool_response, mess)
+            future = executor.submit(self.get_response, mess)
+        if ftool.result() == None:
+            print(future.result())
+            return future.result()
+        else:
+            self.ai_bookkeeping = self.ai_bookkeeping[:-1]
+            self.add_conversation(ftool.result()[1], ftool.result()[0])
+            return ftool.result()[0]
