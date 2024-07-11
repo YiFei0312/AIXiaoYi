@@ -2,7 +2,7 @@ import configparser
 import dashscope
 
 personality = {}
-dashscope.api_key = 'sk-f20d44a96ccd48069a9ce5960d60d78c'
+dashscope.api_key = ''
 def generate_config_file():
     config = configparser.ConfigParser()
     api_key = input("请输入您的api_key:")
