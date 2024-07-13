@@ -1,14 +1,13 @@
 import json
-from http import HTTPStatus
 import dashscope
 import http.client
-from tools import tool
+import tools
 from config import config
 from concurrent.futures import ThreadPoolExecutor
 
 class BookkeepingManager:
-    TOOL_MAP = tool.TOOL_MAP
-    TOOL_MAP_1 = tool.TOOL_MAP_1
+    TOOL_MAP = tools.TOOL_MAP
+    TOOL_MAP_1 = tools.TOOL_MAP_1
 
     def __init__(self):
         self.ai_bookkeeping = [{'role': 'system', 'content': config.personality['default']}]
@@ -17,7 +16,7 @@ class BookkeepingManager:
         try:
             response = dashscope.Generation.call(model="qwen-max",
                                                  messages=[{'role': 'system', 'content': '你是一个负责判断是否使用工具的助手'}, {'role': 'user', 'content': mess}],
-                                                 tools=tool.tools,
+                                                 tools=tools.tools,
                                                  result_format='message')
             if response.status_code == http.client.OK:
                 assistant_message = response.output.choices[0]['message']
@@ -32,7 +31,7 @@ class BookkeepingManager:
                         description = \
                         json.loads(response.output.choices[0].message.tool_calls[0]['function']['arguments'])[
                             'description']
-                        tool_message = tool.draw_picture(description)
+                        tool_message = tools.draw_picture(description)
                         self.add_conversation('user', mess)
                         self.add_conversation(assistant_message['role'], tool_message)
                         return tool_message
@@ -74,7 +73,7 @@ class BookkeepingManager:
     def get_tool_response(self, mess: str):  # 获取工具回复
         response = dashscope.Generation.call(model="qwen-max",
                                              messages=[{'role': 'system', 'content': '你是一个负责判断是否使用工具的助手'}, {'role': 'user', 'content': mess}],
-                                             tools=tool.tools,
+                                             tools=tools.tools,
                                              result_format='message')
         if response.status_code == http.client.OK:
             assistant_message = response.output.choices[0]['message']
@@ -88,7 +87,8 @@ class BookkeepingManager:
                 elif tool_name in self.TOOL_MAP_1:
                     description = json.loads(response.output.choices[0].message.tool_calls[0]['function']['arguments'])[
                         'description']
-                    tool_message = tool.play_music(description)
+                    tool_message = self.TOOL_MAP_1[tool_name](description)
+
                     # self.add_conversation('user', mess)
                     # self.add_conversation(assistant_message['role'], tool_message)
                     return [tool_message, assistant_message['role']]

@@ -1,6 +1,6 @@
 import os
 import time
-from speech import Speech_Recognition, Speech_Synthesizer, Speech_Waken
+import speech
 import qwen
 from config import config
 from logging import getLogger
@@ -43,36 +43,37 @@ def main():
         return
 
     manager = qwen.BookkeepingManager()
+    speech_recognizer = speech.Recognizer()
 
     while True:
         try:
-            Speech_Waken.speech_recognize_keyword_locally_from_microphone()
+            speech.keyword_recognize()
         except Exception as e:
             logger.error(f"启动语音唤醒失败: {e}")
             return
         try:
-            Speech_Synthesizer.start('唉！我在！')
-            Speech_Recognition.start()
+            speech_recognizer.start()
+            speech.synthesizer('唉！我在！')
             logger.info('等待语音输入中...')
 
             while True:
-                if Speech_Recognition.start_time is not None and time.time() - Speech_Recognition.start_time > 30:
-                    Speech_Recognition.stop()
-                    Speech_Recognition.start()
+                if speech_recognizer.start_time is not None and time.time() - speech_recognizer.start_time > 30:
+                    speech_recognizer.stop()
+                    speech_recognizer.start()
 
                 try:
-                    Speech_Recognition.send_audio_frame()
+                    speech_recognizer.send_audio_frame()
                 except Exception as e:
                     logger.error(f"发送音频帧失败: {e}")
                     break
 
-                if Speech_Recognition.last_voice_time is not None and time.time() - Speech_Recognition.last_voice_time > 1:
-                    logger.info(f"你说：{Speech_Recognition.latest_sentence}")
-                    if Speech_Recognition.last_voice_time is not None:
-                        Speech_Recognition.stop()
+                if speech_recognizer.last_voice_time is not None and time.time() - speech_recognizer.last_voice_time > 1:
+                    logger.info(f"你说：{speech_recognizer.latest_sentence}")
+                    if speech_recognizer.last_voice_time is not None:
+                        speech_recognizer.stop()
                     try:
-                        Speech_Synthesizer.start(
-                            manager.get_qwen_response_parallel(Speech_Recognition.latest_sentence))
+                        speech.synthesizer(
+                            manager.get_qwen_response_parallel(speech_recognizer.latest_sentence))
                     except Exception as e:
                         logger.error(f"语音合成失败: {e}")
                     logger.info('对话结束，程序重新开始...')
