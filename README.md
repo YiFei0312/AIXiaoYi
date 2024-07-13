@@ -159,7 +159,20 @@ filetree
 - [xxxxxxxxxxxxxx](https://connoratherton.com/loaders)
 
 
-
+<!-- links -->
+[your-project-path]:YiFei0312/AIXiaoYi
+[contributors-shield]: https://img.shields.io/github/contributors/YiFei0312/AIXiaoYi.svg?style=flat-square
+[contributors-url]: https://github.com/YiFei0312/AIXiaoYi/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/YiFei0312/AIXiaoYi.svg?style=flat-square
+[forks-url]: https://github.com/YiFei0312/AIXiaoYi/network/members
+[stars-shield]: https://img.shields.io/github/stars/YiFei0312/AIXiaoYi.svg?style=flat-square
+[stars-url]: https://github.com/YiFei0312/AIXiaoYi/stargazers
+[issues-shield]: https://img.shields.io/github/issues/YiFei0312/AIXiaoYi.svg?style=flat-square
+[issues-url]: https://img.shields.io/github/issues/YiFei0312/AIXiaoYi.svg
+[license-shield]: https://img.shields.io/github/license/YiFei0312/AIXiaoYi.svg?style=flat-square
+[license-url]: https://github.com/YiFei0312/AIXiaoYi/blob/master/LICENSE.txt
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://linkedin.com/in/AIXiaoYi
 
 
 
