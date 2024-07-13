@@ -2,7 +2,7 @@
 
 # AIXiaoYi
 
-ProjectName and Description
+AIXiaoYi 基于阿里百炼平台大模型的语音助手
 
 <!-- PROJECT SHIELDS -->
 
@@ -21,18 +21,18 @@ ProjectName and Description
     <img src="data/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">"完美的"README模板</h3>
+  <h3 align="center">AIXiaoYi</h3>
   <p align="center">
-    一个"完美的"README模板去快速开始你的项目！
+    AIXiaoYi 基于阿里百炼平台大模型的语音助手
     <br />
-    <a href="https://github.com/shaojintian/Best_README_template"><strong>探索本项目的文档 »</strong></a>
+    <a href="https://github.com/YiFei0312/AIXiaoYi/README.md"><strong>探索本项目的文档 »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/shaojintian/Best_README_template">查看Demo</a>
+    <a href="https://github.com/YiFei0312/AIXiaoYi/releases">查看Demo</a>
     ·
-    <a href="https://github.com/shaojintian/Best_README_template/issues">报告Bug</a>
+    <a href="https://github.com/YiFei0312/AIXiaoYi/issues">报告Bug</a>
     ·
-    <a href="https://github.com/shaojintian/Best_README_template/issues">提出新特性</a>
+    <a href="https://github.com/YiFei0312/AIXiaoYi/issues">提出新特性</a>
   </p>
 
 </p>
@@ -57,44 +57,46 @@ ProjectName and Description
 
 ### 上手指南
 
-请将所有链接中的“shaojintian/Best_README_template”改为“your_github_name/your_repository”
 
 
 
 ###### 开发前的配置要求
 
-1. xxxxx x.x.x
-2. xxxxx x.x.x
+1. python 3.9~3.11
+2. vlc media player
 
 ###### **安装步骤**
 
-1. Get a free API Key at [https://example.com](https://example.com)
+1. Get a API Key at [https://bailian.console.aliyun.com](https://bailian.console.aliyun.com)
 2. Clone the repo
 
 ```sh
-git clone https://github.com/shaojintian/Best_README_template.git
+git clone https://github.com/YiFei0312/AIXiaoYi.git
 ```
 
 ### 文件目录说明
 eg:
 
 ```
-filetree 
-├── ARCHITECTURE.md
-├── LICENSE.txt
+filetree
+├── /config/
+│  └── config.py
+├── /data/
+├── /model/
+│  └── modelfile
+├── /speech/
+│  ├── __init__.py
+│  ├── Speech_Recognition.py
+│  ├── Speech_Synthesizer.py
+│  └── Speech_Waken.py
+├── /tools/
+│  ├── __init__.py
+│  ├── adjust_voice.py
+│  └── musicplayer.py
 ├── README.md
-├── /account/
-├── /bbs/
-├── /docs/
-│  ├── /rules/
-│  │  ├── backend.txt
-│  │  └── frontend.txt
-├── manage.py
-├── /oa/
-├── /static/
-├── /templates/
-├── useless.md
-└── /util/
+├── main.py
+├── qwen.py
+└── requirements.txt
 
 ```
 
@@ -102,19 +104,16 @@ filetree
 
 
 
-### 开发的架构 
 
-请阅读[ARCHITECTURE.md](https://github.com/shaojintian/Best_README_template/blob/master/ARCHITECTURE.md) 查阅为该项目的架构。
 
 ### 部署
 
-暂无
+获取发布的版本: [Releases](https://github.com/YiFei0312/AIXiaoYi/releases)
 
 ### 使用到的框架
 
-- [xxxxxxx](https://getbootstrap.com)
-- [xxxxxxx](https://jquery.com)
-- [xxxxxxx](https://laravel.com)
+- [暂无](https://github.com/YiFei0312/AIXiaoYi)
+
 
 ### 贡献者
 
@@ -139,9 +138,9 @@ filetree
 
 ### 作者
 
-xxx@xxxx
+亦非@yifei0312
 
-知乎:xxxx  &ensp; qq:xxxxxx    
+邮箱:1634750752@qq.com  &ensp; qq:1634750752    
 
  *您也可以在贡献者名单中参看所有参与该项目的开发者。*
 
@@ -159,20 +158,7 @@ xxx@xxxx
 - [Animate.css](https://daneden.github.io/animate.css)
 - [xxxxxxxxxxxxxx](https://connoratherton.com/loaders)
 
-<!-- links -->
-[your-project-path]:shaojintian/Best_README_template
-[contributors-shield]: https://img.shields.io/github/contributors/shaojintian/Best_README_template.svg?style=flat-square
-[contributors-url]: https://github.com/shaojintian/Best_README_template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/shaojintian/Best_README_template.svg?style=flat-square
-[forks-url]: https://github.com/shaojintian/Best_README_template/network/members
-[stars-shield]: https://img.shields.io/github/stars/shaojintian/Best_README_template.svg?style=flat-square
-[stars-url]: https://github.com/shaojintian/Best_README_template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/shaojintian/Best_README_template.svg?style=flat-square
-[issues-url]: https://img.shields.io/github/issues/shaojintian/Best_README_template.svg
-[license-shield]: https://img.shields.io/github/license/shaojintian/Best_README_template.svg?style=flat-square
-[license-url]: https://github.com/shaojintian/Best_README_template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/shaojintian
+
 
 
 
