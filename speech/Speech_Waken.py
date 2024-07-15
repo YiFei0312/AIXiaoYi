@@ -11,11 +11,22 @@ def cheak_modelfile():
     source_folder = os.path.join(current_dir, '_internal', 'model')
 
     if not os.path.exists(target_folder) or not os.path.isdir(target_folder):
+        # 如果目标文件夹不存在，则创建它
         if not os.path.exists(target_folder):
             os.makedirs(target_folder)
-        shutil.move(source_folder, target_folder)
 
+        # 将内部的 model 文件夹内容复制到目标位置
+        for item in os.listdir(source_folder):
+            s = os.path.join(source_folder, item)
+            d = os.path.join(target_folder, item)
+            if os.path.isdir(s):
+                shutil.copytree(s, d)
+            else:
+                shutil.copy2(s, d)
+
+    # 检查目标文件是否存在
     if not os.path.exists(target_file) or not os.path.isfile(target_file):
+        # 如果文件不存在，检查文件夹内容是否完整
         if os.path.exists(target_folder):
             for root, dirs, files in os.walk(target_folder):
                 if 'wakeup_xiaoyitx.table' in files:
