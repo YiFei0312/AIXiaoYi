@@ -1,16 +1,16 @@
 import asyncio
 import time
-
 import vlc
 import requests
-# 导入数据解析模块
 import parsel
-# 导入制表模块
 from prettytable import PrettyTable
 from urllib.parse import quote
+
+
 class MusicPlayer:
     done = False
     states = None
+
     def __init__(self):
         """
         初始化音乐播放器
@@ -18,7 +18,7 @@ class MusicPlayer:
         self.instance = vlc.Instance('--no-xlib')
         self.player = self.instance.media_player_new()
         self.event_manager = self.player.event_manager()
-        self.event_manager.event_attach(vlc.EventType.MediaPlayerPlaying,self.on_playing)
+        self.event_manager.event_attach(vlc.EventType.MediaPlayerPlaying, self.on_playing)
         self.event_manager.event_attach(vlc.EventType.MediaPlayerEndReached, self.on_playback_ended)
 
     def on_playback_ended(self, event):
@@ -26,15 +26,11 @@ class MusicPlayer:
         播放结束时的回调函数
         """
 
-
-
     def on_playing(self, event):
         """播放开始时的回调函数"""
-       # print("音乐开始播放！")
+        # print("音乐开始播放！")
         self.states = 'playing'
         self.done = True
-
-
 
     def play_music(self, url):
         """
@@ -119,6 +115,63 @@ class MusicPlayer:
         return play_url
 
 
+music_player = MusicPlayer()
+
+
+def play_music(description):
+    message = ''
+    try:
+        music = music_player.search_music(description)
+        if music:
+            music_player.play_music(music)
+            #while not music_player.done:
+            #time.sleep(.1)
+            #if music_player.states == 'playing':
+            print(f"正在播放歌曲: {description}")
+            message = f"正在播放歌曲: {description}"
+            return message
+
+        else:
+            print("未找到对应歌曲")
+            message = "未找到对应歌曲"
+            return message
+    except Exception as e:
+        print(f"播放音乐时发生错误: {e}")
+        message = "播放音乐时发生错误"
+        return message
+
+
+def pause_music():
+    try:
+        # 暂停播放，这里假设MusicPlayer的pause_music方法不需要额外参数
+        print('暂停播放了喵！')
+        music_player.pause_music()
+    except Exception as e:
+        print(f"暂停播放时发生错误: {e}")
+    message = '暂停播放了喵！'
+    return message
+
+
+def resume_music():
+    try:
+        # 继续播放，这里假设MusicPlayer的pause_music方法不需要额外参数
+        print('继续播放了喵！')
+        music_player.resume_music()
+    except Exception as e:
+        print(f"继续播放时发生错误: {e}")
+    message = '继续播放了喵！'
+    return message
+
+
+def stop_music():
+    try:
+        # 停止播放，这里假设MusicPlayer的pause_music方法不需要额外参数
+        print('停止播放了喵！')
+        music_player.stop_music()
+    except Exception as e:
+        print(f"停止播放时发生错误: {e}")
+    message = '停止播放了喵！'
+    return message
 
 
 if __name__ == "__main__":
