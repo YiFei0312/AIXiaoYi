@@ -1,5 +1,29 @@
 import azure.cognitiveservices.speech as speechsdk
 import time
+import os
+import shutil
+
+
+def cheak_modelfile():
+    current_dir = os.getcwd()
+    target_folder = os.path.join(current_dir, 'model')
+    target_file = os.path.join(target_folder, 'wakeup_xiaoyitx.table')
+    source_folder = os.path.join(current_dir, '_internal', 'model')
+
+    if not os.path.exists(target_folder) or not os.path.isdir(target_folder):
+        if not os.path.exists(target_folder):
+            os.makedirs(target_folder)
+        shutil.move(source_folder, target_folder)
+
+    if not os.path.exists(target_file) or not os.path.isfile(target_file):
+        if os.path.exists(target_folder):
+            for root, dirs, files in os.walk(target_folder):
+                if 'wakeup_xiaoyitx.table' in files:
+                    break
+            else:
+                print('模型文件未找到')  # 文件未找到，此处可以根据需要添加额外的处理逻辑
+        else:
+            print('目标文件夹不存在')  # 目标文件夹不存在，无法检查文件
 
 
 def speech_recognize_keyword_locally_from_microphone():
@@ -27,9 +51,6 @@ def speech_recognize_keyword_locally_from_microphone():
         #     print("RECOGNIZED KEYWORD: {}".format(result.text))
         nonlocal done
         done = True
-
-
-
 
     def canceled_cb(evt):
         result = evt.result
@@ -60,17 +81,11 @@ def speech_recognize_keyword_locally_from_microphone():
 
     # If active keyword recognition needs to be stopped before results, it can be done with
     #
-      # stop_future = keyword_recognizer.stop_recognition_async()
-      # print('Stopping...')
-      # stopped = stop_future.get()
+    # stop_future = keyword_recognizer.stop_recognition_async()
+    # print('Stopping...')
+    # stopped = stop_future.get()
     # keyword_recognizer.stop_recognition_async()
     while not done:
         time.sleep(0.1)
     print('唤醒成功')
     keyword_recognizer.stop_recognition_async()
-
-
-
-
-
-
