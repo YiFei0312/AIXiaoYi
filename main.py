@@ -18,6 +18,11 @@ def safe_create_dir(directory):
             os.mkdir(directory)
     except Exception as e:
         logger.error(f"创建目录失败: {directory}, 错误: {e}")
+    """检查模型文件"""
+    try:
+        speech.cheak_modelfile()
+    except Exception as e:
+        logger.error(f"检查模型文件失败: {e}")
 
 
 def main():
