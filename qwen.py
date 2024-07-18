@@ -2,19 +2,19 @@ import json
 import dashscope
 import http.client
 import tools
-from config import config
+import config
 from concurrent.futures import ThreadPoolExecutor
 
 
 class BookkeepingManager:
     TOOL_MAP = tools.TOOL_MAP
     def __init__(self):
-        self.ai_bookkeeping = [{'role': 'system', 'content': config.personality['default']}]
+        self.ai_bookkeeping = [{'role': 'system', 'content': config.personality}]
 
 
     def clear_request(self):
         """清空对话记录"""
-        self.ai_bookkeeping = [{'role': 'system', 'content': config.personality['default']}]
+        self.ai_bookkeeping = [{'role': 'system', 'content': config.personality}]
 
     def add_conversation(self, role, msg):
         self.ai_bookkeeping.append({

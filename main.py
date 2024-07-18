@@ -1,8 +1,7 @@
-import os
 import time
 import speech
 import qwen
-from config import config
+import config
 from logging import getLogger
 import logging
 
@@ -11,40 +10,19 @@ import logging
 logger = getLogger(__name__)
 
 
-def safe_create_dir(directory):
-    """安全创建目录"""
-    try:
-        if not os.path.exists(directory):
-            os.mkdir(directory)
-    except Exception as e:
-        logger.error(f"创建目录失败: {directory}, 错误: {e}")
+
+def main():
     """检查模型文件"""
     try:
         speech.cheak_modelfile()
     except Exception as e:
         logger.error(f"检查模型文件失败: {e}")
-
-
-def main():
-    config_dir = './config'
-    config_file = './config/config.ini'
-
-    # 安全创建配置文件目录
-    safe_create_dir(config_dir)
-
-    if not os.path.exists(config_file):
-        try:
-            logger.info("配置文件不存在，正在生成...")
-            config.generate_config_file()
-        except Exception as e:
-            logger.error(f"生成配置文件失败: {config_file}, 错误: {e}")
-            return
-
+    """读取配置"""
     try:
-        logger.info("正在读取配置文件...")
-        config.read_config_file()
+        logger.info("正在读取配置...")
+        config.read_config()
     except Exception as e:
-        logger.error(f"读取配置文件失败: {config_file}, 错误: {e}")
+        logger.error(f"读取配置文件失败, 错误: {e}")
         return
 
     manager = qwen.BookkeepingManager()
@@ -77,8 +55,7 @@ def main():
                     if speech_recognizer.last_voice_time is not None:
                         speech_recognizer.stop()
                     try:
-                        speech.synthesizer(
-                            manager.get_qwen_response_parallel(speech_recognizer.latest_sentence))
+                        speech.synthesizer(manager.get_qwen_response_parallel(speech_recognizer.latest_sentence))
                     except Exception as e:
                         logger.error(f"语音合成失败: {e}")
                     logger.info('对话结束，程序重新开始...')
