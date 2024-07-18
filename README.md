@@ -80,7 +80,7 @@ eg:
 ```
 filetree
 ├── /config/
-│  └── config.py
+│  └── __init__.py
 ├── /data/
 ├── /model/
 │  └── modelfile
@@ -91,11 +91,14 @@ filetree
 │  └── Speech_Waken.py
 ├── /tools/
 │  ├── __init__.py
+│  ├── time.py
+│  ├── vision.py
 │  ├── adjust_voice.py
 │  └── musicplayer.py
 ├── README.md
 ├── main.py
 ├── qwen.py
+├── config.db
 └── requirements.txt
 
 ```
