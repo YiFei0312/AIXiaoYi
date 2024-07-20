@@ -34,7 +34,6 @@ class BookkeepingManager:
         if response.status_code == http.client.OK:
             assistant_message = response.output.choices[0]['message']
             if 'tool_calls' in response.output.choices[0].message:
-                print(assistant_message)
                 tool = response.output.choices[0].message.tool_calls[0]['function']
                 tool_name = tool['name']
                 property_list = json.loads(tool['arguments'])
@@ -79,5 +78,4 @@ class BookkeepingManager:
         else:
             self.ai_bookkeeping = self.ai_bookkeeping[:-1]
             self.add_conversation(ftool.result()[1], ftool.result()[0])
-            print(self.ai_bookkeeping)
             return ftool.result()[0]
