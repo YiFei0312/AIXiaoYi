@@ -2,28 +2,31 @@ import time
 import speech
 import qwen
 import config
+from config import retry_on_failure
 from logging import getLogger
 import logging
+from logging.handlers import TimedRotatingFileHandler
 
 
 
 logger = getLogger(__name__)
 
 
-
+@retry_on_failure(max_retries=3, delay=5)
 def main():
     """检查模型文件"""
     try:
         speech.cheak_modelfile()
     except Exception as e:
         logger.error(f"检查模型文件失败: {e}")
+        raise
     """读取配置"""
     try:
         logger.info("正在读取配置...")
         config.read_config()
     except Exception as e:
         logger.error(f"读取配置文件失败, 错误: {e}")
-        return
+        raise
 
     manager = qwen.BookkeepingManager()
     speech_recognizer = speech.Recognizer()
@@ -33,7 +36,7 @@ def main():
             speech.keyword_recognize()
         except Exception as e:
             logger.error(f"启动语音唤醒失败: {e}")
-            return
+            raise
         try:
             speech_recognizer.start()
             speech.synthesizer('唉！我在！')
@@ -68,9 +71,13 @@ def main():
 if __name__ == "__main__":
     # 设置日志输出级别和格式
     logger.setLevel(logging.ERROR)
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    fh=TimedRotatingFileHandler('xiaoyi.log', when='midnight',interval=1,backupCount=30,encoding='utf-8')
+    fh.setLevel(logging.ERROR)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(filename)s - %(funcName)s - %(lineno)s - %(message)s')
     console_handler = logging.StreamHandler()
     console_handler.setFormatter(formatter)
+    fh.setFormatter(formatter)
+    logger.addHandler(fh)
     logger.addHandler(console_handler)
 
     main()

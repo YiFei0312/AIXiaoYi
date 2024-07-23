@@ -3,6 +3,7 @@ import dashscope
 import http.client
 import tools
 import config
+from config import retry_on_failure
 from concurrent.futures import ThreadPoolExecutor
 
 
@@ -21,7 +22,7 @@ class BookkeepingManager:
             'role': role,
             'content': msg
         })
-
+    @retry_on_failure(max_retries=2, delay=2)
     def get_tool_response(self, mess: str):  # 获取工具回复
         response = dashscope.Generation.call(model="qwen-max",
                                              messages=[  # type: ignore
@@ -51,7 +52,7 @@ class BookkeepingManager:
             ))  # 失败，打印错误信息
             tool_message = '请求工具失败'
             return [tool_message, 'assistant']
-
+    @retry_on_failure(max_retries=2, delay=2)
     def get_response(self, mess: str):  # 多轮对话回复
         self.add_conversation('user', mess)
         response = dashscope.Generation.call(model="qwen-max",
