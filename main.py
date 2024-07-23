@@ -6,6 +6,7 @@ from config import retry_on_failure
 from logging import getLogger
 import logging
 from logging.handlers import TimedRotatingFileHandler
+from concurrent.futures import ThreadPoolExecutor
 
 
 
@@ -58,9 +59,35 @@ def main():
                     if speech_recognizer.last_voice_time is not None:
                         speech_recognizer.stop()
                     try:
-                        speech.synthesizer(manager.get_qwen_response_parallel(speech_recognizer.latest_sentence))
+                        try:
+                            user_say = speech_recognizer.latest_sentence
+                        except Exception as e:
+                            logger.error(f"识别语音失败: {e}")
+                        try:
+                            with ThreadPoolExecutor() as executor:
+                                try:
+                                    tool_response = executor.submit(manager.get_tool_response, user_say)
+                                except Exception as e:
+                                    logger.error(f"获取工具回复失败: {e}")
+                                try:
+                                    model_response = executor.submit(manager.get_response, user_say)
+                                except Exception as e:
+                                    logger.error(f"获取模型回复失败: {e}")
+                            if tool_response.result() is None:
+                                print(model_response.result())
+                                xiaoyi_say = model_response.result()
+                            else:
+                                manager.ai_bookkeeping = manager.ai_bookkeeping[:-1]
+                                manager.add_conversation(tool_response.result()[1], tool_response.result()[0])
+                                xiaoyi_say = tool_response.result()[0]
+                        except Exception as e:
+                            logger.error(f"获取回复失败: {e}")
+                        try:
+                            speech.synthesizer(xiaoyi_say)
+                        except Exception as e:
+                            logger.error(f"语音合成失败: {e}")
                     except Exception as e:
-                        logger.error(f"语音合成失败: {e}")
+                        logger.error(f"对话失败: {e}")
                     logger.info('对话结束，程序重新开始...')
                     break
         except Exception as e:

@@ -1,7 +1,10 @@
+import time
 import dashscope
 import sqlite3
 import os
 import functools
+
+
 personalities = {}
 personality = ''
 
@@ -39,6 +42,7 @@ def read_config():
     conn.close()
     print('读取配置成功')
 
+
 def retry_on_failure(max_retries=3, delay=2, exceptions=(Exception,)):
     # 重试 装饰器
     def decorator(func):
@@ -50,18 +54,22 @@ def retry_on_failure(max_retries=3, delay=2, exceptions=(Exception,)):
                     return result
                 except exceptions as e:
                     if attempt < max_retries:
-                        logger.error(f"Function '{func.__name__}' failed on attempt {attempt + 1}: {e}. Retrying in {delay} seconds...")
+                        logger.error(
+                            f"Function '{func.__name__}' failed on attempt {attempt + 1}: {e}. Retrying in {delay} seconds...")
                         time.sleep(delay)
                     else:
                         logger.error(f"Function '{func.__name__}' failed after {max_retries} retries: {e}")
                         raise
+
         return wrapper
+
     return decorator
+
 
 if __name__ != '__main__':
     # 获取config/__init__.py的绝对路径
     mypackage_init_path = os.path.abspath(__file__)
     mypackage_dir = os.path.dirname(mypackage_init_path)
     file_path = os.path.join(mypackage_dir, 'xiaoyi.log')
-    with open(file_path, 'w',encoding='utf-8') as f:
+    with open(file_path, 'w', encoding='utf-8') as f:
         f.write('')
