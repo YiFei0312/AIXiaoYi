@@ -68,14 +68,14 @@ class BookkeepingManager:
             ))  # 失败，打印错误信息并回滚最后一条消息
             self.ai_bookkeeping = self.ai_bookkeeping[:-1]
 
-    def get_qwen_response_parallel(self, mess: str):  # 多线程请求
-        with ThreadPoolExecutor() as executor:
-            ftool = executor.submit(self.get_tool_response, mess)
-            future = executor.submit(self.get_response, mess)
-        if ftool.result() is None:
-            print(future.result())
-            return future.result()
-        else:
-            self.ai_bookkeeping = self.ai_bookkeeping[:-1]
-            self.add_conversation(ftool.result()[1], ftool.result()[0])
-            return ftool.result()[0]
+    # def get_qwen_response_parallel(self, mess: str):  # 多线程请求
+    #     with ThreadPoolExecutor() as executor:
+    #         ftool = executor.submit(self.get_tool_response, mess)
+    #         future = executor.submit(self.get_response, mess)
+    #     if ftool.result() is None:
+    #         print(future.result())
+    #         return future.result()
+    #     else:
+    #         self.ai_bookkeeping = self.ai_bookkeeping[:-1]
+    #         self.add_conversation(ftool.result()[1], ftool.result()[0])
+    #         return ftool.result()[0]
