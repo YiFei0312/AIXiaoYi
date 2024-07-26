@@ -4,7 +4,7 @@ import os
 import shutil
 
 
-def cheak_modelfile():
+def check_model_file():
     current_dir = os.getcwd()
     target_folder = os.path.join(current_dir, 'model')
     target_file = os.path.join(target_folder, 'wakeup_xiaoyitx.table')

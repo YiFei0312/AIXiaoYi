@@ -1,6 +1,7 @@
 import pyaudio
 from dashscope.audio.tts import ResultCallback, SpeechSynthesizer, SpeechSynthesisResult
 
+
 class Callback(ResultCallback):
     _player = None
     _stream = None
@@ -33,7 +34,10 @@ class Callback(ResultCallback):
         # if result.get_timestamp() is not None:
         #     print('timestamp result:', str(result.get_timestamp()))
 
+
 callback = Callback()
+
+
 def start(text):
     SpeechSynthesizer.call(model='sambert-zhiwei-v1',
                            text=text,
